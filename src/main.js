@@ -1,6 +1,9 @@
 import { fetchProductsList } from './helpers/fetchFunctions';
 import { createProductElement } from './helpers/shopFunctions';
 import './style.css';
+import { fetchProduct } from './fetchFunctions.js';
+import { createCartProductElement } from './shopFunctions.js';
+
 // iniciando projeto
 
 function hildeLoading() {
@@ -49,3 +52,27 @@ const fetchData = async () => {
 fetchData();
 showLoading();
 erroAPI();
+
+const cartProductsList = document.querySelector('.cart__products');
+
+function addToCart(productId) {
+  // Salva o ID do produto no localStorage
+  saveCartID(productId);
+
+  // Faz a requisição para buscar os detalhes do produto
+  fetchProduct(productId)
+    .then((product) => {
+      // Cria o elemento HTML para o produto no carrinho
+      const cartProductElement = createCartProductElement(product);
+
+      // Adiciona o elemento como filho da lista de produtos do carrinho
+      cartProductsList.appendChild(cartProductElement);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+// Adiciona um evento de clique ao botão "Adicionar ao carrinho"
+const addToCartButton = document.querySelector('.add-to-cart-button');
+addToCartButton.addEventListener('click', () => addToCart(productId));
