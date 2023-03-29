@@ -11,6 +11,19 @@ const createProductList = async (product) => {
     sectionProducts.appendChild(createProductElement(element));
   });
 };
+function showLoading() {
+  const loadingElement = document.createElement('div');
+  loadingElement.innerText = 'Carregando...';
+  loadingElement.classList.add('loading');
+  document.body.appendChild(loadingElement);
+}
+
+function hideLoading() {
+  const loadingElement = document.querySelector('.loading');
+  if (loadingElement) {
+    document.body.removeChild(loadingElement);
+  }
+}
 window.onload = async () => {
-  await createProductList('smartphone');
+  await createProductList('computador');
 };
