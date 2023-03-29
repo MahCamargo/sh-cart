@@ -1,4 +1,4 @@
-// import { searchCep } from './helpers/cepFunctions';
+import { searchCep } from './helpers/cepFunctions';
 import './style.css';
 import { fetchProductsList } from './helpers/fetchFunctions';
 import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
@@ -52,3 +52,17 @@ const fetchData = async () => {
 fetchData();
 showLoading();
 erroAPI();
+
+document.querySelector('.cep-button').addEventListener('click', searchCep);
+
+// console.log(getSavedCartIDs());
+
+window.onload = () => {
+  productScreen();
+};
+
+document.querySelector('.cep-button').addEventListener('click', searchCep);
+
+window.onload = () => {
+  productScreen();
+};

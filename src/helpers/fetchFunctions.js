@@ -13,22 +13,3 @@ export const fetchProductsList = async (product) => {
   const data = await response.json();
   return data.results;
 };
-
-const cartProductsList = document.querySelector('.cart__products');
-
-function addToCart(productId) {
-  saveCartID(productId);
-
-  then((product) => {
-    const cartProductElement = createCartProductElement(product);
-
-    cartProductsList.appendChild(cartProductElement);
-  })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-const addToCartButton = document.querySelector('.add-to-cart-button');
-
-addToCartButton.addEventListener('click', () => addToCart(productId));
