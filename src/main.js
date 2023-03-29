@@ -1,8 +1,8 @@
-import { fetchProductsList } from './helpers/fetchFunctions';
-import { createProductElement } from './helpers/shopFunctions';
+import { searchCep } from './helpers/cepFunctions';
 import './style.css';
-import { fetchProduct } from './fetchFunctions.js';
-import { createCartProductElement } from './shopFunctions.js';
+import { fetchProductsList } from './helpers/fetchFunctions';
+import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
+import { getSavedCartIDs, saveCartID } from './helpers/cartFunctions';
 
 // iniciando projeto
 
@@ -75,4 +75,5 @@ function addToCart(productId) {
 
 // Adiciona um evento de clique ao botão "Adicionar ao carrinho"
 const addToCartButton = document.querySelector('.add-to-cart-button');
+
 addToCartButton.addEventListener('click', () => addToCart(productId));
