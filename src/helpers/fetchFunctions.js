@@ -18,7 +18,7 @@ const cartProductsList = document.querySelector('.cart__products');
 
 function addToCart(productId) {
   saveCartID(productId);
-  fetchProduct(productId)
+ // fetchProduct(productId)
     .then((product) => {
       const cartProductElement = createCartProductElement(product);
 

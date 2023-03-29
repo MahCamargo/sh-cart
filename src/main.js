@@ -52,4 +52,3 @@ const fetchData = async () => {
 fetchData();
 showLoading();
 erroAPI();
-
