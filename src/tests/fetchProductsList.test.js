@@ -36,3 +36,6 @@ describe('Teste a função fetchProductsList', () => {
     delete global.fetch;
   });
 });
+
+// it('...', () => {
+  // });

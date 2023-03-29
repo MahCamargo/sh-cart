@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="src/main.js" type="module" defer></script>
-  
   </head>
   <body>
     <header class="header">
@@ -23,15 +22,18 @@
       </div>
     </header>
     <section class="container">
+      <div class="loading">
+        <label>carregando</label>
+      </div>
+      <div class="error"></div>
       <section class="products"></section>
       <section class="cart">
         <ol class="cart__products"></ol>
-        <p class="price">Subtotal <span>R$<span class="total-price">0</span></span></p>
+         <p class="price">Subtotal <span>R$<span class="total-price">0</span></span></p>
         <input type="text" class="cep-input" placeholder="Digite seu CEP">
         <button class="cep-button cart-button">Buscar CEP</button>
         <span class="cart__address"></span>
-      </section class="products">
-      <h1 class="loading" > carregando ...</h1> 
+      </section>
     </section>
   </body>
 </html>

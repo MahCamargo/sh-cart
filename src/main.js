@@ -1,29 +1,51 @@
-import { searchCep } from './helpers/cepFunctions';
 import { fetchProductsList } from './helpers/fetchFunctions';
-import './style.css';
 import { createProductElement } from './helpers/shopFunctions';
+import './style.css';
+// iniciando projeto
 
-document.querySelector('.cep-button').addEventListener('click', searchCep);
-const sectionProducts = document.querySelector('.products');
-const createProductList = async (product) => {
-  const response = await fetchProductsList(product);
-  response.forEach((element) => {
-    sectionProducts.appendChild(createProductElement(element));
-  });
-};
-function showLoading() {
-  const loadingElement = document.createElement('div');
-  loadingElement.innerText = 'Carregando...';
-  loadingElement.classList.add('loading');
-  document.body.appendChild(loadingElement);
-}
-
-function hideLoading() {
-  const loadingElement = document.querySelector('.loading');
-  if (loadingElement) {
-    document.body.removeChild(loadingElement);
+function hildeLoading() {
+  const loadings = document.getElementsByClassName('loading');
+  const erros = document.getElementsByClassName('error');
+  if (loadings.length) {
+    loadings[0].remove();
+  }
+  if (erros.length) {
+    erros[0].remove();
   }
 }
-window.onload = async () => {
-  await createProductList('computador');
+
+function showLoading() {
+  const div = document.createElement('div');
+  div.classList.add('loading');
+  const label = document.createElement('label');
+  label.innerText = 'carregando';
+
+  div.appendChild(label);
+}
+
+const erroAPI = async () => {
+  try {
+    showLoading();
+    await fetchProductsList('computador');
+  } catch (error) {
+    const divError = document.createElement('div');
+    divError.classList = 'error';
+    const label = document.createElement('label');
+    label.innerText = 'Algum erro ocorreu, recarregue a página e tente novamente';
+    divError.appendChild(label);
+    document.body.appendChild(divError);
+  }
 };
+
+const fetchData = async () => {
+  const results = await fetchProductsList('computador');
+  showLoading();
+  const html = document.querySelector('.products');
+  console.log(html);
+  results.forEach((element) => { html.appendChild(createProductElement(element)); });
+  hildeLoading();
+};
+
+fetchData();
+showLoading();
+erroAPI();
