@@ -31,3 +31,34 @@ describe('Teste a função fetchProduct', () => {
   });
 
 });
+const fetchProduct = require('./fetchProduct');
+const produto = require('./produto');
+
+describe('fetchProduct', () => {
+  test('Deve ser uma função', () => {
+    expect(typeof fetchProduct).toBe('function');
+  });
+
+  test('Deve chamar a função fetch', () => {
+    const fetch = jest.fn();
+    fetchProduct('MLB1405519561', fetch);
+    expect(fetch).toHaveBeenCalled();
+  });
+
+  test('Deve chamar a função fetch com o endpoint correto', () => {
+    const fetch = jest.fn();
+    fetchProduct('MLB1405519561', fetch);
+    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/items/MLB1405519561');
+  });
+
+  test('Deve retornar um objeto igual ao objeto produto', async () => {
+    const fetch = jest.fn(() => Promise.resolve({ json: () => produto }));
+    const result = await fetchProduct('MLB1405519561', fetch);
+    expect(result).toEqual(produto);
+  });
+
+  test('Deve lançar um erro ao chamar a função sem argumento', async () => {
+    const fetch = jest.fn(() => Promise.resolve({ json: () => produto }));
+    await expect(fetchProduct(undefined, fetch)).rejects.toThrow('ID não informado');
+  });
+});
