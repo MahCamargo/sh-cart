@@ -53,22 +53,3 @@ fetchData();
 showLoading();
 erroAPI();
 
-const cartProductsList = document.querySelector('.cart__products');
-
-function addToCart(productId) {
-  saveCartID(productId);
-
-  fetchProduct(productId)
-    .then((product) => {
-      const cartProductElement = createCartProductElement(product);
-
-      cartProductsList.appendChild(cartProductElement);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-const addToCartButton = document.querySelector('.add-to-cart-button');
-
-addToCartButton.addEventListener('click', () => addToCart(productId));
