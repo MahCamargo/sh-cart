@@ -56,16 +56,12 @@ erroAPI();
 const cartProductsList = document.querySelector('.cart__products');
 
 function addToCart(productId) {
-  // Salva o ID do produto no localStorage
   saveCartID(productId);
 
-  // Faz a requisição para buscar os detalhes do produto
   fetchProduct(productId)
     .then((product) => {
-      // Cria o elemento HTML para o produto no carrinho
       const cartProductElement = createCartProductElement(product);
 
-      // Adiciona o elemento como filho da lista de produtos do carrinho
       cartProductsList.appendChild(cartProductElement);
     })
     .catch((error) => {
@@ -73,7 +69,6 @@ function addToCart(productId) {
     });
 }
 
-// Adiciona um evento de clique ao botão "Adicionar ao carrinho"
 const addToCartButton = document.querySelector('.add-to-cart-button');
 
 addToCartButton.addEventListener('click', () => addToCart(productId));

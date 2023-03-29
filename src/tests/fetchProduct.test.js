@@ -62,3 +62,29 @@ describe('fetchProduct', () => {
     await expect(fetchProduct(undefined, fetch)).rejects.toThrow('ID não informado');
   });
 });
+
+async function fetchProduct(productId) {
+  if (!productId) {
+    throw new Error("ID não informado");
+  }
+
+  const url = `https://api.mercadolibre.com/items/${productId}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Erro ao buscar produto com ID ${productId}`);
+  }
+
+  const data = await response.json();
+
+  const product = {
+    id: data.id,
+    name: data.title,
+    price: data.price,
+    quantity: 1,
+  };
+
+  cart.push(product);
+
+  return product;
+}
