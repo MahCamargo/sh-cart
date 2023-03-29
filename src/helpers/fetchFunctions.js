@@ -18,12 +18,12 @@ const cartProductsList = document.querySelector('.cart__products');
 
 function addToCart(productId) {
   saveCartID(productId);
- // fetchProduct(productId)
-    .then((product) => {
-      const cartProductElement = createCartProductElement(product);
 
-      cartProductsList.appendChild(cartProductElement);
-    })
+  then((product) => {
+    const cartProductElement = createCartProductElement(product);
+
+    cartProductsList.appendChild(cartProductElement);
+  })
     .catch((error) => {
       console.error(error);
     });
