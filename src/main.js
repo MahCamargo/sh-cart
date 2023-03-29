@@ -1,8 +1,8 @@
-import { searchCep } from './helpers/cepFunctions';
+// import { searchCep } from './helpers/cepFunctions';
 import './style.css';
 import { fetchProductsList } from './helpers/fetchFunctions';
 import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
-import { getSavedCartIDs, saveCartID } from './helpers/cartFunctions';
+import { saveCartID } from './helpers/cartFunctions';
 
 // iniciando projeto
 
