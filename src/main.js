@@ -53,14 +53,23 @@ fetchData();
 showLoading();
 erroAPI();
 
-document.querySelector('.cep-button').addEventListener('click', searchCep);
+const cartProductsList = document.querySelector(".cart__products");
 
-// console.log(getSavedCartIDs());
+function addToCart(productId) {
+  saveCartID(productId);
 
-window.onload = () => {
-  productScreen();
-};
+  then((product) => {
+    const cartProductElement = createCartProductElement(product);
 
+    cartProductsList.appendChild(cartProductElement);
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+
+const addToCartButton = document.querySelector(".add-to-cart-button");
+
+addToCartButton.addEventListener("click", () => addToCart(productId));
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
 window.onload = () => {
