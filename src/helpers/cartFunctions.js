@@ -11,21 +11,22 @@ export const getSavedCartIDs = () => {
  * Função que adiciona um product ao carrinho.
  * @param {string} id - ID do product a ser adicionado.
  */
+
 export const saveCartID = (id) => {
   if (!id) throw new Error('Você deve fornecer um ID');
-
   const cartProducts = getSavedCartIDs();
   const newCartProducts = [...cartProducts, id];
   localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
+  console.log(cartProducts);
 };
 
 /**
- * Função que remove um product do carrinho.
+* Função que remove um product do carrinho.
  * @param {string} id - ID do product a ser removido.
  */
+
 export const removeCartID = (id) => {
   if (!id) throw new Error('Você deve fornecer um ID');
-
   const cartProducts = [...getSavedCartIDs()];
   const indexProduct = cartProducts.indexOf(id);
   cartProducts.splice(indexProduct, 1);
