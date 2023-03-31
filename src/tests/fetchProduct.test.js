@@ -1,90 +1,26 @@
 import './mocks/fetchSimulator';
-import { fetchProduct, fetchProductsList } from '../helpers/fetchFunctions';
+import { fetchProduct } from '../helpers/fetchFunctions';
 import product from './mocks/product';
-
 // implemente seus testes aqui
-describe('Teste a função fetchProduct', () => {
-  it('Teste se fetchProductsList é uma função', () => {
-    expect(typeof fetchProductsList).toBe("function");
-
-  });
-  it(" Testa se fetch foi chamada,executando a função fetchProductsList com o argumento 'computador'",async () => {
-    await fetchProductsList("computador")
-    expect(fetch).toHaveBeenCalled();
-
-  });
-
-  it("Teste se, ao chamar a função fetchProductsList com o argumento 'computador', a função fetch utiliza o endpoint 'https://api.mercadolibre.com/sites/MLB/search?q=computador';", async () => {
-    await fetchProductsList("computador");
-    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/sites/MLB/search?q=computador');
-  });
-
-  it("Teste se o retorno da função fetchProductsList com o argumento 'computador' é uma estrutura de dados igual ao objeto computadorSearch, que já está importado no arquivo", async () => {
-   const data = await fetchProductsList("computador");
-    expect(data).toEqual(product)
-
-  });
-
-  it("Teste se, ao chamar a função fetchProductsList sem argumento, retorna um erro com a mensagem: 'Termo de busca não informado'", async () => {
-    await expect(fetchProductsList()).rejects.toThrow(new Error('Termo de busca não informado'))
-
-  });
-
-});
-
-
-describe('fetchProduct', () => {
-  
-  it('Deve ser uma função', () => {
+describe('Teste a função fetchProduct',  () => {
+  it('fetchproduct é uma função', () => {
     expect(typeof fetchProduct).toBe('function');
   });
-
-  it('Deve chamar a função fetch', () => {
-    const fetch = jest.fn();
-    fetchProduct('MLB1405519561', fetch);
-    expect(fetch).toHaveBeenCalled();
+  it('fetchProduct com o argumento do produto "MLB1405519561" e teste se fetch foi chamada', async () => {
+    await fetchProduct('MLB1405519561');
+    expect(fetch).toHaveBeenCalledTimes(1)
+  });
+  it('fetchProduct com o argumento do produto "MLB1405519561", a função fetch utiliza o endpoint "https://api.mercadolibre.com/items/MLB1405519561', async () => {
+    await fetchProduct('MLB1405519561');
+    expect(fetch).toHaveBeenCalledWith("https://api.mercadolibre.com/items/MLB1405519561")
+  });
+  it('testa fetchProduct com o argumento MLB1405519561 retorna os dados de product', async () => {
+    const result = await fetchProduct('MLB1405519561');
+    expect(result).toEqual(product);
   });
 
-  it('Deve chamar a função fetch com o endpoint correto', () => {
-    const fetch = jest.fn();
-    fetchProduct('MLB1405519561', fetch);
-    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/items/MLB1405519561');
-  });
+  it('fetchProduct deve retornar um erro com a mensagem "ID não informado" caso não entregue parâmetro', async () => {
+    await expect(fetchProduct()).rejects.toEqual(new Error('ID não informado'));
+  })
 
-  it('Deve retornar um objeto igual ao objeto produto', async () => {
-    const fetch = jest.fn(() => Promise.resolve({ json: () => produto }));
-    const result = await fetchProduct('MLB1405519561', fetch);
-    expect(result).toEqual(produto);
-  });
-
-  it('Deve lançar um erro ao chamar a função sem argumento', async () => {
-    const fetch = jest.fn(() => Promise.resolve({ json: () => produto }));
-    await expect(fetchProduct(undefined, fetch)).rejects.toThrow('ID não informado');
-  });
 });
-
-async function fetchProduct(productId) {
-  if (!productId) {
-    throw new Error("ID não informado");
-  }
-
-  const url = `https://api.mercadolibre.com/items/${productId}`;
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error(`Erro ao buscar produto com ID ${productId}`);
-  }
-
-  const data = await response.json();
-
-  const product = {
-    id: data.id,
-    name: data.title,
-    price: data.price,
-    quantity: 1,
-  };
-
-  cart.push(product);
-
-  return product;
-}
