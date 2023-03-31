@@ -53,7 +53,7 @@ fetchData();
 showLoading();
 erroAPI();
 
-const cartProductsList = document.querySelector(".cart__products");
+const cartProductsList = document.querySelector('.cart__products');
 
 function addToCart(productId) {
   saveCartID(productId);
@@ -67,9 +67,9 @@ function addToCart(productId) {
   });
 }
 
-const addToCartButton = document.querySelector(".add-to-cart-button");
+const addToCartButton = document.querySelector('add-to-cart-button');
 
-addToCartButton.addEventListener("click", () => addToCart(productId));
+addToCartButton.addEventListener('click', () => addToCart(productId));
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
 window.onload = () => {
